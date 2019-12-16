@@ -1,6 +1,7 @@
+const dotevn = require('dotenv-safe').load()
 const app = require('./app')
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.listen(port, function () {
     console.info(`App está rodando na porta ${port}`)
-})
+})  
