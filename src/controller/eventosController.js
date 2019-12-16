@@ -11,12 +11,12 @@ const getAll = (request, response) => {
 }
 
 const postEvento = (request, response) => {
-    const eventoNome = request.params.name;
-    const eventoData = request.params.data;
-    const evento = new eventosCollection ({name: eventoNome, data: eventoData})
+    const eventoBody = request.body
+    const evento = new eventosCollection (eventoBody)
     evento.save((error) => {
         if(error){
-            return response.status(400).send(error);
+            console.log(error)
+            //return response.status(400).send(error);
         } else {
             return response.status(201).send(evento);
         }
