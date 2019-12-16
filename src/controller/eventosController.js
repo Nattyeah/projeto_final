@@ -1,47 +1,75 @@
-const eventosCollection = require('../model/eventosSchema')
+require('dotenv-safe').load();
+const eventosCollection = require('../model/eventosSchema');
 
 const getAll = (request, response) => {
-    eventosCollection.find((error, eventos) => {
-        if(error){
-            return response.status(500).send(error)
-        } else {
-            return response.status(200).send(eventos)
-               }
-    })
+  eventosCollection.find((error, eventos) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else {
+      return response.status(200).send(eventos)
+    }
+  })
 };
 
 const getById = (request, response) => {
-    const localidade = request.body;
-
-    return eventosCollection.findById(localidade, (error, eventos) => {
-   if(error){
-        return response.status(500).send(error)
+  const localidade = request.params.id;
+  return eventosCollection.findById(localidade, (error, eventos) => {
+    if (error) {
+      return response.status(500).send(error)
+    } if (eventos) {
+      return response.status(200).send(eventos)
     } else {
-        return response.status(200).send(eventos)
-           }
-})
+      return response.status(404).send('Evento não encontrado.')
+    }
+  })
 };
 
 const add = (request, response) => {
-    console.log(request.url)
-    // novo objeto pra nossa coleção
-    const eventoDoBody = request.body
-    const evento = new eventosCollection(eventoDoBody)
-  
-    contato.save((error) => {
-      // if(error !== null && error !== undefined)
-      if(error) {
-        return response.status(400).send(error)
-      } else {
-        return response.status(201).send(evento)
-      } 
-    })
-  }
+  const novoEvento = new eventosCollection(request.body)
+  novoEvento.save((error) => {
+    if (error) {
+      console.log(error)
+      return response.status(500).send(error)
+    }
+    return response.status(201).send(novoEvento)
+  })
+};
 
+const remove = (request, response) => {
+  const id = request.params.id
+  eventosCollection.findByIdAndRemove(id, (error, evento) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else if (evento) {
+      console.log(2)
+      return response.status(200).send("Evento removido")
+    }
+    else {
+      return response.sendStatus(404)
+    }
+  })
+}
+
+const atualizar = (request, response) => {
+  const atualizarId = request.params.id
+  const eventoDoBody = request.body
+  eventosCollection.findByIdAndUpdate(atualizarId, eventoDoBody, (error, evento) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else if (evento) {
+      return response.status(200).send("Evento atualizado")
+    }
+    else {
+      return response.sendStatus(404)
+    }
+  })
+}
 
 module.exports = {
-    getAll,
-    add,
-    getById
+  getAll,
+  add,
+  remove,
+  getById,
+  atualizar
+
 }
-//"Saturday, 19 October 1996, 9:00:00 pm"

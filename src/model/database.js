@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const DB_URL = process.env.MONGODB_URI
+const DB_URL = "mongodb://localhost:27017/eventos"
 
 const connect = () => {
     mongoose.connect(DB_URL, {useNewUrlParser: true })

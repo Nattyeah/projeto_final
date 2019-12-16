@@ -4,7 +4,7 @@ const cors = require('cors')
 const bodyParser = require("body-parser")
 
 const database = require('./src/model/database')
-database.connect;
+database.connect();
 
 app.use(cors())
 app.use(bodyParser.json())
