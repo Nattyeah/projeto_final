@@ -13,11 +13,9 @@ DELETE: Deleta o evento
 
 # Como iniciar a API:
 - Fazer o clone para seu computador
-- Instalar através do npm as libs: 
-npm install express/
-npm install mongoose/
-npm install nodemon/
-npm install cors/
-npm install dotenv-safe(tem que usar a versão 6.1.0)
+- Instalar através do npm install todas dependências(express/mongoose/nodemon/cors): *dotenv-safe(tem que usar a versão 6.1.0)*
+- Para rodar a API usar "node server.js"
 
-- Para rodar a API no terminal usar "node server.js"
+# Melhorias:
+- Acrescentar rotas para filtrar por localidade
+- Acrescentar administrador do sistema
