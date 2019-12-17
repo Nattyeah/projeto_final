@@ -11,18 +11,18 @@ const getAll = (request, response) => {
   })
 };
 
-const getById = (request, response) => {
-  const localidade = request.params.id;
-  return eventosCollection.findById(localidade, (error, eventos) => {
-    if (error) {
-      return response.status(500).send(error)
-    } if (eventos) {
-      return response.status(200).send(eventos)
-    } else {
-      return response.status(404).send('Evento não encontrado.')
-    }
-  })
-};
+// const getById = (request, response) => {
+//   const localidade = request.params.id;
+//   return eventosCollection.findById(localidade, (error, eventos) => {
+//     if (error) {
+//       return response.status(500).send(error)
+//     } if (eventos) {
+//       return response.status(200).send(eventos)
+//     } else {
+//       return response.status(404).send('Evento não encontrado.')
+//     }
+//   })
+// };
 
 const add = (request, response) => {
   const novoEvento = new eventosCollection(request.body)
@@ -69,7 +69,7 @@ module.exports = {
   getAll,
   add,
   remove,
-  getById,
+  // getById,
   atualizar
 
 }
